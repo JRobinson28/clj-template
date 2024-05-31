@@ -1,0 +1,9 @@
+{:app/info {:name "clj-template"
+            :api-version "1.0.0"}
+
+ :app/server {:port 2800}
+
+ :logging/config {:min-level :info}
+
+ :ig/system {:clj-template.server/server #ref [:app/server]
+             :clj-template.core/app #ref [:app/info]}}
