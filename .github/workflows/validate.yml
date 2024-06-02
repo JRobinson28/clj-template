@@ -16,7 +16,7 @@ jobs:
           cli: 1.11.3
           clj-kondo: 2024.05.24
       - name: Lint
-        run: make lint
+        run: clj-kondo --lint src test
 
   tests:
     runs-on: ubuntu-latest
@@ -31,4 +31,4 @@ jobs:
           cli: 1.11.3.1456
 
       - name: Run tests
-        run: make test
+        run: clojure -X:test
