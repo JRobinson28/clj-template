@@ -3,7 +3,9 @@
 
  :app/server {:port 2800}
 
- :logging/config {:min-level :info}
+ :logging/config {:min-level #profile {:default :info
+                                       :dev :debug}}
 
  :ig/system {:clj-template.server/server #ref [:app/server]
-             :clj-template.core/app #ref [:app/info]}}
+             :clj-template.core/app {:info #ref [:app/info]
+                                     :logging #ref [:logging/config]}}}

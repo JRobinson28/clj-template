@@ -1,3 +1,4 @@
+
 (ns clj-template.core
   (:require [aero.core :as aero]
             [clojure.java.io :as io]
@@ -15,19 +16,22 @@
   (ig/ref value))
 
 (defmethod ig/init-key ::app
-  [_ config]
+  [_ {:keys [logging] :as config}]
   (log/info "Starting app" config)
+  (log/set-min-level! (:min-level logging))
+  (log/debug "Debug logging enabled")
   config)
 
 (defmethod ig/halt-key! ::app
   [_ _]
   (log/info "Stopping app"))
 
-(defn init-app! []
+(defn init-app!
+  [env]
   (alter-var-root #'app
                   (fn [_]
                     (-> (io/resource config-path)
-                        (aero/read-config)
+                        (aero/read-config {:profile (keyword env)})
                         :ig/system
                         (doto (ig/load-namespaces))
                         ig/init))))
@@ -39,6 +43,6 @@
 
 (defn -main
   "Application entry point"
-  [& _args]
+  [& [env]]
   (.addShutdownHook (Runtime/getRuntime) (Thread. halt-app!))
-  (init-app!))
+  (init-app! env))
