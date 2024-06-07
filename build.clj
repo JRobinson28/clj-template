@@ -1,16 +1,22 @@
 (ns build
-  (:require [clojure.tools.build.api :as b]))
+  (:require
+    [clojure.tools.build.api :as b]))
+
 
 (def ^:private TARGET-DIR "target")
 (def ^:private CLASS-DIR (format "%s/classes" TARGET-DIR))
 (def ^:private UBER-FILE (format "%s/standalone.jar" TARGET-DIR))
 (def ^:private MAIN-NS 'clj-template.core)
 
+
 (def ^:private basis
   (delay (b/create-basis {:project "deps.edn"})))
 
-(defn- clean []
+
+(defn- clean
+  []
   (b/delete {:path TARGET-DIR}))
+
 
 (defn- uber
   [{:keys [class-dir uber-file main-ns]}]
@@ -23,6 +29,7 @@
            :uber-file uber-file
            :basis @basis
            :main main-ns}))
+
 
 (defn build
   "Build an uberjar."

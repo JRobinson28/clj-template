@@ -1,12 +1,15 @@
 (ns user
-  (:require [aero.core :as aero]
-            [clojure.java.io :as io]
-            [hawk.core :as hawk]
-            [integrant.core :as ig]
-            [integrant.repl :as igr]
-            [nrepl.cmdline :as nrepl]))
+  (:require
+    [aero.core :as aero]
+    [clojure.java.io :as io]
+    [hawk.core :as hawk]
+    [integrant.core :as ig]
+    [integrant.repl :as igr]
+    [nrepl.cmdline :as nrepl]))
+
 
 (defonce ^:dynamic stop nil)
+
 
 (defn- new-system
   []
@@ -16,13 +19,16 @@
       (doto (ig/load-namespaces))
       ig/expand))
 
+
 (defn shutdown!
   [{:keys [file-watcher]}]
   (when file-watcher
     (hawk/stop! file-watcher))
   (igr/halt))
 
-(defn go []
+
+(defn go
+  []
   (let [file-watcher (hawk/watch! [{:paths ["src/clj" "src/cljc"]
                                     :filter hawk/file?
                                     :handler (fn [_ _]
@@ -34,11 +40,13 @@
                     (fn [_]
                       #(shutdown! {:file-watcher file-watcher})))))
 
+
 (defn go-with-nrepl
   [_]
   (require '[nrepl.cmdline :as nrepl])
   (go)
   (nrepl/-main))
+
 
 (comment
 

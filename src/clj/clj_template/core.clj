@@ -1,19 +1,24 @@
 
 (ns clj-template.core
-  (:require [aero.core :as aero]
-            [clojure.java.io :as io]
-            [integrant.core :as ig]
-            [taoensso.timbre :as log])
-  (:gen-class))
+  (:gen-class)
+  (:require
+    [aero.core :as aero]
+    [clojure.java.io :as io]
+    [integrant.core :as ig]
+    [taoensso.timbre :as log]))
+
 
 (def app nil)
+
 
 (def ^:private config-path
   "config.edn")
 
+
 (defmethod aero/reader 'ig/ref
   [_ _ value]
   (ig/ref value))
+
 
 (defmethod ig/init-key ::app
   [_ {:keys [logging] :as config}]
@@ -22,9 +27,11 @@
   (log/debug "Debug logging enabled")
   config)
 
+
 (defmethod ig/halt-key! ::app
   [_ _]
   (log/info "Stopping app"))
+
 
 (defn init-app!
   [env]
@@ -36,10 +43,12 @@
                         (doto (ig/load-namespaces))
                         ig/init))))
 
+
 (defn halt-app!
   []
   (when app
     (ig/halt! app)))
+
 
 (defn -main
   "Application entry point"
