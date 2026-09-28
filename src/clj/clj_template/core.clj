@@ -1,29 +1,17 @@
-
 (ns clj-template.core
   (:gen-class)
   (:require
-    [aero.core :as aero]
-    [clojure.java.io :as io]
+    [clj-template.system :as system]
     [integrant.core :as ig]
     [taoensso.timbre :as log]))
 
 
-(def app nil)
-
-
-(def ^:private config-path
-  "config.edn")
-
-
-(defmethod aero/reader 'ig/ref
-  [_ _ value]
-  (ig/ref value))
+(defonce app nil)
 
 
 (defmethod ig/init-key ::app
-  [_ {:keys [logging] :as config}]
+  [_ config]
   (log/info "Starting app" config)
-  (log/set-min-level! (:min-level logging))
   (log/debug "Debug logging enabled")
   config)
 
@@ -34,14 +22,10 @@
 
 
 (defn init-app!
-  [env]
+  [profile]
   (alter-var-root #'app
                   (fn [_]
-                    (-> (io/resource config-path)
-                        (aero/read-config {:profile (keyword env)})
-                        :ig/system
-                        (doto (ig/load-namespaces))
-                        ig/init))))
+                    (ig/init (system/read-config profile)))))
 
 
 (defn halt-app!
@@ -53,5 +37,5 @@
 (defn -main
   "Application entry point"
   [& [env]]
-  (.addShutdownHook (Runtime/getRuntime) (Thread. halt-app!))
-  (init-app! env))
+  (.addShutdownHook (Runtime/getRuntime) (Thread. ^Runnable halt-app!))
+  (init-app! (keyword (or env "prod"))))

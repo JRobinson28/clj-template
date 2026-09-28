@@ -1,11 +1,17 @@
 (ns clj-template.server
   (:require
     [integrant.core :as ig]
-    [ring.adapter.jetty :as ring]
-    [taoensso.timbre :as log]))
+    [ring.adapter.jetty :as jetty]
+    [taoensso.timbre :as log])
+  (:import
+    (org.eclipse.jetty.server
+      Server)))
 
 
-(defn- handler
+(set! *warn-on-reflection* true)
+
+
+(defn handler
   [_]
   {:status 200
    :headers {"Content-Type" "text/plain"}
@@ -13,12 +19,13 @@
 
 
 (defmethod ig/init-key ::server
-  [_ {:keys [port] :as _server}]
+  [_ {:keys [port]}]
   (log/info "Starting server on port" port)
-  (ring/run-jetty handler {:port port}))
+  (jetty/run-jetty handler {:port port
+                            :join? false}))
 
 
 (defmethod ig/halt-key! ::server
-  [_ server]
+  [_ ^Server server]
   (log/info "Stopping server")
   (.stop server))
