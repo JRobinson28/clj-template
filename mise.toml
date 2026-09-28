@@ -31,6 +31,14 @@ run = "clojure -M:fmt check"
 description = "Build the uberjar"
 run = "clojure -T:build build"
 
+[tasks.outdated]
+description = "List outdated dependencies"
+run = "clojure -M:outdated"
+
+[tasks."outdated:upgrade"]
+description = "Upgrade outdated dependencies"
+run = "clojure -M:outdated --upgrade"
+
 [tasks.ci]
 description = "Run all checks"
 depends = ["lint", "fmt:check", "test"]

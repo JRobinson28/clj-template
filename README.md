@@ -21,6 +21,8 @@ mise install
 | `mise run fmt`        | Format with cljfmt                        |
 | `mise run fmt:check`  | Check formatting                          |
 | `mise run build`      | Build `target/standalone.jar`             |
+| `mise run outdated`       | List outdated dependencies                |
+| `mise run outdated:upgrade` | Upgrade outdated dependencies           |
 | `mise run ci`         | lint + fmt:check + test                   |
 
 ## REPL
