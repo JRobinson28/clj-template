@@ -1,9 +1,9 @@
 (ns clj-template.server-test
   (:require
-    [clj-http.client :as http]
-    [clj-template.server :as server]
-    [clojure.test :refer [deftest is]]
-    [integrant.core :as ig]))
+   [clj-http.client :as http]
+   [clj-template.server :as server]
+   [clojure.test :refer [deftest is]]
+   [integrant.core :as ig]))
 
 (def ^:private port 2801)
 

@@ -2,7 +2,6 @@
 java = "temurin-21"
 clojure = "1.12.6.1673"
 clj-kondo = "2026.08.04"
-cljstyle = "0.17.642"
 
 [tasks.dev]
 description = "Start the system with an nREPL server"
@@ -21,12 +20,12 @@ description = "Lint with clj-kondo"
 run = "clj-kondo --lint src test dev build.clj"
 
 [tasks.fmt]
-description = "Format with cljstyle"
-run = "cljstyle fix"
+description = "Format with cljfmt"
+run = "clojure -M:fmt fix"
 
 [tasks."fmt:check"]
-description = "Check formatting with cljstyle"
-run = "cljstyle check --report"
+description = "Check formatting with cljfmt"
+run = "clojure -M:fmt check"
 
 [tasks.build]
 description = "Build the uberjar"

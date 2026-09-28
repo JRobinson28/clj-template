@@ -7,6 +7,8 @@
         ring/ring-jetty-adapter {:mvn/version "1.15.5"}}
 
  :aliases {:run {:main-opts ["-m" "clj-template.core"]}
+           :fmt {:deps {dev.weavejester/cljfmt {:mvn/version "0.16.6"}}
+                 :main-opts ["-m" "cljfmt.main"]}
            :build {:deps {io.github.clojure/tools.build {:git/tag "v0.10.14" :git/sha "1176afd"}
                           org.clojure/clojure {:mvn/version "1.12.6"}}
                    :ns-default build}
@@ -16,6 +18,7 @@
                  :exec-fn user/go-with-nrepl}
 
            :test {:extra-paths ["test"]
-                  :extra-deps {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1"
+                  :extra-deps {clj-http/clj-http {:mvn/version "3.13.1"}
+                               io.github.cognitect-labs/test-runner {:git/tag "v0.5.1"
                                                                      :git/sha "dfb30dd"}}
                   :exec-fn cognitect.test-runner.api/test}}}

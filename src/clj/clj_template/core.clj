@@ -1,13 +1,11 @@
 (ns clj-template.core
   (:gen-class)
   (:require
-    [clj-template.system :as system]
-    [integrant.core :as ig]
-    [taoensso.timbre :as log]))
-
+   [clj-template.system :as system]
+   [integrant.core :as ig]
+   [taoensso.timbre :as log]))
 
 (defonce app nil)
-
 
 (defmethod ig/init-key ::app
   [_ config]
@@ -15,11 +13,9 @@
   (log/debug "Debug logging enabled")
   config)
 
-
 (defmethod ig/halt-key! ::app
   [_ _]
   (log/info "Stopping app"))
-
 
 (defn init-app!
   [profile]
@@ -27,12 +23,10 @@
                   (fn [_]
                     (ig/init (system/read-config profile)))))
 
-
 (defn halt-app!
   []
   (when app
     (ig/halt! app)))
-
 
 (defn -main
   "Application entry point"

@@ -1,14 +1,12 @@
 (ns clj-template.system
   (:require
-    [aero.core :as aero]
-    [clojure.java.io :as io]
-    [integrant.core :as ig]
-    [taoensso.timbre :as log]))
-
+   [aero.core :as aero]
+   [clojure.java.io :as io]
+   [integrant.core :as ig]
+   [taoensso.timbre :as log]))
 
 (def ^:private config-path
   "config.edn")
-
 
 (defn read-config
   "Read the aero config for `profile`, configure logging and return the

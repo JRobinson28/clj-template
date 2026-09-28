@@ -14,7 +14,7 @@ jobs:
         uses: jdx/mise-action@v2
       - name: clj-kondo
         run: mise run lint
-      - name: cljstyle
+      - name: cljfmt
         run: mise run fmt:check
 
   test:
