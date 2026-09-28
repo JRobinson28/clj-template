@@ -1,0 +1,2 @@
+{:linters {:unused-namespace {:level :warning}
+           :unused-referred-var {:level :warning}}}
