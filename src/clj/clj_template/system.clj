@@ -1,9 +1,9 @@
 (ns clj-template.system
   (:require
    [aero.core :as aero]
+   [clj-template.logging :as logging]
    [clojure.java.io :as io]
-   [integrant.core :as ig]
-   [taoensso.timbre :as log]))
+   [integrant.core :as ig]))
 
 (def ^:private config-path
   "config.edn")
@@ -13,7 +13,7 @@
   expanded Integrant system config."
   [profile]
   (let [config (aero/read-config (io/resource config-path) {:profile profile})]
-    (log/set-min-level! (get-in config [:logging/config :min-level]))
+    (logging/configure! (:logging/config config))
     (-> (:ig/system config)
         (doto (ig/load-namespaces))
         ig/expand)))
