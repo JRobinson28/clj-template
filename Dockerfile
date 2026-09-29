@@ -1,4 +1,4 @@
-FROM clojure:temurin-21-tools-deps-1.12.6.1673-alpine AS build
+FROM clojure:temurin-25-tools-deps-1.12.6.1673-alpine AS build
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . /app
 RUN clojure -T:build build
 
 
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 
 RUN addgroup -S app && adduser -S app -G app
 USER app
