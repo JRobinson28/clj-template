@@ -7,7 +7,8 @@
                                        :dev :debug}
                   ;; Per-namespace overrides, e.g. to quieten noisy libraries
                   :ns-min-levels {"org.eclipse.jetty.*" :warn}
-                  :format #profile {:default :json}}
+                  :format #profile {:default :json
+                                    :dev :text}}
 
  :ig/system {:clj-template.server/server #ref [:app/server]
              :clj-template.core/app {:info #ref [:app/info]}}}

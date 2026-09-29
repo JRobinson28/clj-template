@@ -1,6 +1,6 @@
 # clj-template
 
-Minimal Clojure service template: [Integrant](https://github.com/weavejester/integrant) system, [Aero](https://github.com/juxt/aero) config, Ring/Jetty and Timbre.
+Minimal Clojure service template: [Integrant](https://github.com/weavejester/integrant) system, [Aero](https://github.com/juxt/aero) config, Ring/Jetty and [Telemere](https://github.com/taoensso/telemere) logging.
 
 ## Setup
 

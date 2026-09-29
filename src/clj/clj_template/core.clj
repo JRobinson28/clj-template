@@ -3,19 +3,19 @@
   (:require
    [clj-template.system :as system]
    [integrant.core :as ig]
-   [taoensso.timbre :as log]))
+   [taoensso.telemere :as t]))
 
 (defonce app nil)
 
 (defmethod ig/init-key ::app
   [_ config]
-  (log/info "Starting app" config)
-  (log/debug "Debug logging enabled")
+  (t/log! {:level :info :data config} "Starting app")
+  (t/log! :debug "Debug logging enabled")
   config)
 
 (defmethod ig/halt-key! ::app
   [_ _]
-  (log/info "Stopping app"))
+  (t/log! "Stopping app"))
 
 (defn init-app!
   [profile]

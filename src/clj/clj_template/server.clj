@@ -2,7 +2,7 @@
   (:require
    [integrant.core :as ig]
    [ring.adapter.jetty :as jetty]
-   [taoensso.timbre :as log])
+   [taoensso.telemere :as t])
   (:import
    (org.eclipse.jetty.server
     Server)))
@@ -17,11 +17,11 @@
 
 (defmethod ig/init-key ::server
   [_ {:keys [port]}]
-  (log/info "Starting server on port" port)
+  (t/log! {:level :info :data {:port port}} "Starting server")
   (jetty/run-jetty handler {:port port
                             :join? false}))
 
 (defmethod ig/halt-key! ::server
   [_ ^Server server]
-  (log/info "Stopping server")
+  (t/log! "Stopping server")
   (.stop server))
