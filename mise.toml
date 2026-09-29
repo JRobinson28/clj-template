@@ -2,6 +2,7 @@
 java = "temurin-21"
 clojure = "1.12.6.1673"
 clj-kondo = "2026.08.04"
+babashka = "1.13.225"
 
 [tasks.dev]
 description = "Start the system with an nREPL server"
@@ -17,7 +18,7 @@ run = "clojure -X:test"
 
 [tasks.lint]
 description = "Lint with clj-kondo"
-run = "clj-kondo --lint src test dev build.clj"
+run = "clj-kondo --lint src test dev scripts build.clj"
 
 [tasks.fmt]
 description = "Format with cljfmt"
@@ -38,6 +39,10 @@ run = "clojure -M:outdated"
 [tasks."outdated:upgrade"]
 description = "Upgrade outdated dependencies"
 run = "clojure -M:outdated --upgrade"
+
+[tasks.rename]
+description = "Rename the project, e.g. `mise run rename my-app`"
+run = "bb scripts/rename.clj"
 
 [tasks.ci]
 description = "Run all checks"

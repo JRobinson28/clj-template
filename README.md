@@ -24,6 +24,7 @@ mise install
 | `mise run outdated`       | List outdated dependencies                |
 | `mise run outdated:upgrade` | Upgrade outdated dependencies           |
 | `mise run ci`         | lint + fmt:check + test                   |
+| `mise run rename <name>` | Rename the project (see below)         |
 
 ## REPL
 
@@ -47,4 +48,10 @@ docker compose up --build
 
 ## Using the template
 
-Rename `clj-template` / `clj_template` throughout (namespaces, directories, `build.clj`, `config.edn`).
+Rename `clj-template` / `clj_template` throughout (namespaces, directories, `build.clj`, `config.edn`) with:
+
+```sh
+mise run rename my-app       # or a qualified name, e.g. acme.my-app
+```
+
+The [Babashka](https://babashka.org) script `scripts/rename.clj` rewrites tracked files, moves the source directories and removes this section.
